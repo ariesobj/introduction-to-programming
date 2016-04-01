@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# 컴퓨터 공학부 201601560 권혁모
 
 PRINT_NEWLINE = -1
 PRINT_RESET = -2

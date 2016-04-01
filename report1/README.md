@@ -15,3 +15,5 @@ REPORT 1
 # 실행 결과
 
 ![result of program](result.png)
+
+#### 작성자: 컴퓨터 공학부 201601560 권혁모
