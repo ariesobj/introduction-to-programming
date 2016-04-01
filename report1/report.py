@@ -47,17 +47,6 @@ def print_rows(n):
     printer_state = printer(printer_state, PRINT_NEWLINE)
 
 def compute_needed_rows(n):
-    # 충분히 작은 n 에 대하여 간단한 비교를 통해 값을 구하는 것이 더 빠르다.
-    if n <= 1:
-        return 1
-    if n <= 3:
-        return 2
-    if n <= 7:
-        return 3
-    if n <= 15:
-        return 4
-    if n <= 31:
-        return 5
     j = 1
     v = 2
     n += 1
