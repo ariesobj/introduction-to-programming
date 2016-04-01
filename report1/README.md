@@ -14,4 +14,4 @@ REPORT 1
 
 # 실행 결과
 
-![result of program][result.png]
+![result of program](result.png)
