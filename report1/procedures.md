@@ -5,6 +5,8 @@ Procedures
 
 이 문서에는 몇 가지 상수를 포함하고 있는데 각각 그 값은 다음과 같다.
 
+## 상수
+
 ```python
 PRINT_NEWLINE = -1
 PRINT_RESET = -2
@@ -14,7 +16,10 @@ PRINT_RESET = -2
 # 마지막에 공백이 없게 하고 싶으면 F, 그렇지 않으려면 T
 END_WITH_SPACE = True
 
-EASY_PRINT = True```
+EASY_PRINT = True
+```
+
+## 함수
 
 ### evalTerm(a, x, e)
 1. a 가 0 이라면 0 을 반환한다.
@@ -30,42 +35,42 @@ EASY_PRINT = True```
 ### print_rows(n)
 1. j 에 compueted_needed_rows(n) 반환 값를 할당한다.
 2. printer_state 에 PRINT_RESET 을 할당한다.
-3. i 에 1 을 할당한다
-4. v 에 1 을 할당한다.
+3. i = 1
+4. v = 1
 5. 다음을 j - 1 번 반복한다.
   1. 다음을 v 번 반복한다.
     1. printer_state 에 printer(printer_state, i) 반환 값을 할당한다.
-    2. i 에 i + 1 을 할당한다.
+    2. i 를 1 증가시킨다.
   2. printer_state 에 printer(printer_state, PRINT_NEWLINE) 반환 값을 할당한다.
   3. v 에 2*v 를 할당한다.
-6. 다음을 n - i + 1 번 반복한다.
+6. i < n + 1 을 만족한다면 다음을 반복한다.
   1. printer_state 에 printer(printer_state, i) 반환 값을 할당한다.
-  2. i 에 i + 1 을 할당한다.
+  2. i 를 1 증가시킨다.
 7. printer_state 에 printer(printer_state, PRINT_NEWLINE) 반환 값을 할당한다.
 8. 종료
 
 ### compute_needed_rows(n)
-1. j 에 1 을 할당한다.
-2. v 에 2 를 할당한다.
-3. n 에 n + 1 을 할당한다.
-4. v < n 이 참으로 평가되는 한 다음을 반복한다.
+1. j = 1
+2. v = 2
+3. n 을 1 증가시킨다.
+4. v < n 을 만족한다면한 다음을 반복한다.
   1. v 에 v * 2 을 할당한다.
-  2. j 에 j + 1 을 할당한다.
+  2. j 를 1 증가시킨다.
 5. j 를 반환한다.
 
 ### printer_without_space(old_state, new_state)
-1. new_state 와 PRINT_NEWLINE 이 같다면 다음을 실행한다.
+1. new_state == PRINT_NEWLINE 이라면 다음을 실행한다.
   1. old_state 를 출력한다.
   2. 한 줄을 출력한다.
   3. PRINT_RESET 을 반환한다.
-2. old_state 가 0 과 같거나 크다면 다음을 실행한다.
+2. old_state >= 0 이라면 다음을 실행한다.
   1. old_state 를 출력한다.
   2. 공백 한칸을 출력한다.
   3. 한 줄을 출력한다.
 3. new_state 을 반환한다.
 
 ### printer_with_space(old_state, new_state)
-1. new_state 가 0 과 같거나 크다면 다음을 실행한다.
+1. new_state >= 0 이라면 다음을 실행한다.
   1. new_state 를 출력한다.
   2. 공백 한칸을 출력한다.
   3. 한 줄을 출력한다.
