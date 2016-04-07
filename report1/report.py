@@ -74,7 +74,8 @@ def printer(x, y):
         return printer_with_space(x, y)
     else:
         return printer_without_space(x, y)
-
+        
+# 아래 함수는 채점에 포함되지 않으며, 단지 검증을 위해 사용되었음
 def testify_correctness(fn, cases):
     for (*args, expected) in cases:
         equated = fn(*args)
