@@ -39,7 +39,7 @@ def print_rows(n):
             printer_state = printer(printer_state, i)
             i += 1
         printer_state = printer(printer_state, PRINT_NEWLINE)
-        v <<= 1
+        v *= 2
 
     for i in range(i, n + 1):
         printer_state = printer(printer_state, i)
@@ -50,7 +50,7 @@ def compute_needed_rows(n):
     v = 2
     n += 1
     while v < n:
-        v <<= 1
+        v *= 2
         j += 1
     return j
 
