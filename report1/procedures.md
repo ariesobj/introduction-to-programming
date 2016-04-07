@@ -36,8 +36,8 @@ EASY_PRINT = True
 ```
 1. j 에 compueted_needed_rows(n) 반환 값를 할당한다.
 2. printer_state 에 PRINT_RESET 을 할당한다.
-3. i = 1
-4. v = 1
+3. i 에 1 을 할당한다.
+4. v 에 1 을 할당한다.
 5. 다음을 j - 1 번 반복한다.
   1. 다음을 v 번 반복한다.
     1. printer_state 에 printer(printer_state, i) 반환 값을 할당한다.
@@ -45,7 +45,7 @@ EASY_PRINT = True
   2. printer_state 에 printer(printer_state, PRINT_NEWLINE) 반환 값을 할당한다.
   3. v 에 2*v 를 할당한다.
 6. i < n + 1 을 만족한다면 다음을 반복한다.
-  1. printer_state 에 printer(printer_state, i) 반환 값을 할당한다.
+  1. printer_state 에 printer(printe하r_state, i) 반환 값을 할당한다.
   2. i 를 1 증가시킨다.
 7. printer_state 에 printer(printer_state, PRINT_NEWLINE) 반환 값을 할당한다.
 8. 종료
