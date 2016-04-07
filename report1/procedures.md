@@ -70,7 +70,7 @@ EASY_PRINT = True
   3. PRINT_RESET 을 반환한다.
 2. old_state >= 0 이라면 다음을 실행한다.
   1. old_state 를 출력한다.
-  2. 공백 한칸을 출력한다.
+  2. 공백 한 칸을 출력한다.
   3. 한 줄을 출력한다.
 3. new_state 을 반환한다.
 ```
@@ -79,7 +79,7 @@ EASY_PRINT = True
 ```
 1. new_state >= 0 이라면 다음을 실행한다.
   1. new_state 를 출력한다.
-  2. 공백 한칸을 출력한다.
+  2. 공백 한 칸을 출력한다.
   3. 한 줄을 출력한다.
 2. new_state 가 PRINT_NEWLINE 이라면 한 줄을 출력한다.
 3. PRINT_RESET 을 반환한다.
