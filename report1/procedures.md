@@ -1,11 +1,9 @@
 Procedures
 ----------
 
-이 문서에는 각 함수의 실행 절차를 포함하고 있다.
+이 문서에서는 각 함수의 일반적인 실행 절차를 서술한다. 또한 몇 가지 상수를 정의하고 있다.
 
-이 문서에는 몇 가지 상수를 포함하고 있는데 각각 그 값은 다음과 같다.
-
-## 상수
+## Constants
 
 ```python
 PRINT_NEWLINE = -1
@@ -13,15 +11,15 @@ PRINT_RESET = -2
 
 # 개인적으로 각 라인 마지막에 공백이 포함되지 않는 것을 선호하므로
 # 공백 유무에 따른 두 가지 경우를 모두 고려하여 프로그램이 작성되어 있다.
-# 마지막에 공백이 없게 하고 싶으면 F, 그렇지 않으려면 T
 END_WITH_SPACE = True
 
 EASY_PRINT = True
 ```
 
-## 함수
+## Functions
 
 ### evalTerm(a, x, e)
+```
 1. a 가 0 이라면 0 을 반환한다.
 2. x 가 0 이라면 다음을 실행한다.
   1. e 가 0 이라면 a 를 반환한다.
@@ -31,8 +29,10 @@ EASY_PRINT = True
 5. 다음을 e 번 반복한다.
   1. v 에 v * x 을 할당한다.
 6. v 을 반환한다.
+```
 
 ### print_rows(n)
+```
 1. j 에 compueted_needed_rows(n) 반환 값를 할당한다.
 2. printer_state 에 PRINT_RESET 을 할당한다.
 3. i = 1
@@ -48,8 +48,10 @@ EASY_PRINT = True
   2. i 를 1 증가시킨다.
 7. printer_state 에 printer(printer_state, PRINT_NEWLINE) 반환 값을 할당한다.
 8. 종료
+```
 
 ### compute_needed_rows(n)
+```
 1. j = 1
 2. v = 2
 3. n 을 1 증가시킨다.
@@ -57,8 +59,10 @@ EASY_PRINT = True
   1. v 에 v * 2 을 할당한다.
   2. j 를 1 증가시킨다.
 5. j 를 반환한다.
+```
 
 ### printer_without_space(old_state, new_state)
+```
 1. new_state == PRINT_NEWLINE 이라면 다음을 실행한다.
   1. old_state 를 출력한다.
   2. 한 줄을 출력한다.
@@ -68,16 +72,21 @@ EASY_PRINT = True
   2. 공백 한칸을 출력한다.
   3. 한 줄을 출력한다.
 3. new_state 을 반환한다.
+```
 
 ### printer_with_space(old_state, new_state)
+```
 1. new_state >= 0 이라면 다음을 실행한다.
   1. new_state 를 출력한다.
   2. 공백 한칸을 출력한다.
   3. 한 줄을 출력한다.
 2. new_state 가 PRINT_NEWLINE 이라면 한 줄을 출력한다.
 3. PRINT_RESET 을 반환한다.
+```
 
 ### printer(x, y)
-1. END_WITH_SPACE 가 T 라면 printer_with_space(x, y) 의 반환 값을 반환한다.
+```
+1. END_WITH_SPACE 가 True 라면 printer_with_space(x, y) 의 반환 값을 반환한다.
 2. printer_without_space(x, y) 의 반환 값을 반환한다.
+```
 
