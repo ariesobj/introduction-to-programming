@@ -17,6 +17,7 @@ EASY_PRINT = True
 ```
 
 ## Functions
+함수 내에서 값을 반환했다면 그 값을 함수 값으로 취급하며 더 이상의 실행을 진행지키지 않는다.
 
 ### evalTerm(a, x, e)
 ```
