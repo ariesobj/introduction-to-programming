@@ -6,7 +6,6 @@ PRINT_RESET = -2
 
 # 개인적으로 각 라인 마지막에 공백이 포함되지 않는 것을 선호하므로
 # 공백 유무에 따른 두 가지 경우를 모두 고려하여 프로그램이 작성되어 있다.
-# 마지막에 공백이 없게 하고 싶으면 F, 그렇지 않으려면 T
 END_WITH_SPACE = True
 
 EASY_PRINT = True
@@ -40,7 +39,7 @@ def print_rows(n):
             printer_state = printer(printer_state, i)
             i += 1
         printer_state = printer(printer_state, PRINT_NEWLINE)
-        v <<= 1
+        v *= 2
 
     for i in range(i, n + 1):
         printer_state = printer(printer_state, i)
@@ -51,7 +50,7 @@ def compute_needed_rows(n):
     v = 2
     n += 1
     while v < n:
-        v <<= 1
+        v *= 2
         j += 1
     return j
 
@@ -75,7 +74,8 @@ def printer(x, y):
         return printer_with_space(x, y)
     else:
         return printer_without_space(x, y)
-
+        
+# 아래 함수는 채점에 포함되지 않으며, 단지 검증을 위해 사용되었음
 def testify_correctness(fn, cases):
     for (*args, expected) in cases:
         equated = fn(*args)
