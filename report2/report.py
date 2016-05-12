@@ -132,9 +132,11 @@ def P1_2():
     print(vigenere_encrypt('attack boring zone', 'tpwhdeodhkd'))
     print(vigenere_encrypt('modular multiplicative inverse', 'solving congruence'))
 
-# 두 번째 문제 해답
+# 두 번째 문제
 def P2():
-    src = open('source', encoding='utf-8').read()
-    for address in find_all_addresses(src):
-        print(address)
+    r = open('source.html')
+    data = r.read()
+    r.close()
+    for addr in find_all_addresses(data):
+        print(addr)
 
