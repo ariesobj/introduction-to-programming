@@ -70,7 +70,7 @@ def proven_index_fn(raw, sep):
 
 def verify_index_fn():
     try:
-        from report import index_char, index_short, index_rp
+        from report import index_char, index_short_pattern, index_rp
     except ImportError:
         raise Failure("cannot import module report")
 
@@ -81,7 +81,7 @@ def verify_index_fn():
         (('abcdefg', 'h'), -1),
     ]
 
-    index_short_table = [
+    index_short_pattern_table = [
         (('abcdefg', 'def'), 3),
         (('abcdefg', 'abc'), 0),
         (('abcdefg', 'abg'), -1),
@@ -96,10 +96,10 @@ def verify_index_fn():
 
     ]
     index_rp_table.extend(index_char_table)
-    index_rp_table.extend(index_short_table)
+    index_rp_table.extend(index_short_pattern_table)
 
     do_TDT(index_char, index_char_table)
-    do_TDT(index_short, index_short_table)
+    do_TDT(index_short_pattern, index_short_pattern_table)
     do_TDT(index_rp, index_rp_table)
 
     do_comparison(index_rp, proven_index_fn, str_supplier(500, 1000))
