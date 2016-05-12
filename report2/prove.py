@@ -31,6 +31,9 @@ def alphastr(n):
     return line
 
 class Failure(Exception):
+    pass
+
+class Incorrect(Failure):
     def __init__(self, name, args, expected, ret):
         super().__init__()
         self.name = name
@@ -47,15 +50,14 @@ def do_TDT(fn, cases):
     for args, expected in cases:
         ret = fn(*args)
         if ret != expected:
-            raise Failure(fn.__name__, args, expected, ret)
+            raise Incorrect(fn.__name__, args, expected, ret)
 
 def do_comparison(fn, proven, inargs):
     for args in inargs:
         expected = proven(*args)
         ret = fn(*args)
         if expected != ret:
-            raise Failure(fn.__name__, args, expected, ret)
-
+            raise Incorrect(fn.__name__, args, expected, ret)
 
 def str_supplier(repeat, maxlen):
     for i in range(repeat):
@@ -68,9 +70,9 @@ def proven_index_fn(raw, sep):
 
 def verify_index_fn():
     try:
-        from report import index_char, index_short_string, index_rp
-    except ImportError as imperr:
-        raise Failure('import', ('report',), '', '')
+        from report import index_char, index_short, index_rp
+    except ImportError:
+        raise Failure("cannot import module report")
 
     index_char_table = [
         (('abcdefg', 'f'), 5),
@@ -79,7 +81,7 @@ def verify_index_fn():
         (('abcdefg', 'h'), -1),
     ]
 
-    index_short_string_table = [
+    index_short_table = [
         (('abcdefg', 'def'), 3),
         (('abcdefg', 'abc'), 0),
         (('abcdefg', 'abg'), -1),
@@ -94,13 +96,13 @@ def verify_index_fn():
 
     ]
     index_rp_table.extend(index_char_table)
-    index_rp_table.extend(index_short_string_table)
+    index_rp_table.extend(index_short_table)
 
     do_TDT(index_char, index_char_table)
-    do_TDT(index_short_string, index_short_string_table)
+    do_TDT(index_short, index_short_table)
     do_TDT(index_rp, index_rp_table)
 
-    do_comparison(index_rp, proven_index_fn, str_supplier(100, 1000))
+    do_comparison(index_rp, proven_index_fn, str_supplier(500, 1000))
 
 @contextmanager
 def verifier():

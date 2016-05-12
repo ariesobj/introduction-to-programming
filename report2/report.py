@@ -1,7 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-radPrime = 127
-modPrime = 1000000007
+radixPrime = 127
 
 max_short_string_len = 1 << 5
 
@@ -16,22 +15,28 @@ for i in range(len(VigenereTableauKeywords)):
 
 ord_a = ord('a')
 
-def rolling_hash(chars):
-    h = 0
-    for char in chars:
-        h = h*radPrime + ord(char)
-    return h
+def new_window(chars):
+    window = 0
+    power = 1
 
-def index_char(string, char):
-    for i, x in enumerate(string):
-        if x == char:
-            return i
+    for char in chars:
+        window = window * radixPrime + ord(char)
+        power *= radixPrime
+
+    return window, power
+
+def index_char(text, char):
+    for pos, x in enumerate(text):
+        if char == x:
+            return pos
+
     return -1
 
-def index_short_string(string, sep):
-    for i in range(len(string) - len(sep) + 1):
-        if string[i:i+len(sep)] == sep:
-            return i
+def index_short_pattern(text, pattern):
+    n = len(pattern)
+    for pos in range(len(text) - n + 1):
+        if text[pos:pos + n] == pattern:
+            return pos
 
     return -1
 
