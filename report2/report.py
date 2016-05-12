@@ -2,16 +2,19 @@
 
 radixPrime = 127
 
-VigenereTableau = []
-VigenereTableauKeywords = " abcdefghijklmnopqrstuvwxyz"
-
-for i in range(len(VigenereTableauKeywords)):
-    row = []
-    row.extend(VigenereTableauKeywords[i:])
-    row.extend(VigenereTableauKeywords[:i])
-    VigenereTableau.append(row)
-
 ord_a = ord('a')
+
+def new_vigenere_table(keywords):
+    table = []
+    for i in range(len(keywords)):
+        row = []
+        row.extend(VigenereTableauKeywords[i:])
+        row.extend(VigenereTableauKeywords[:i])
+        table.append(row)
+
+    return table
+
+VigenereTableau = new_vigenere_table(" abcdefghijklmnopqrstuvwxyz")
 
 def new_window(pattern):
     window = 0
@@ -76,7 +79,7 @@ def index_rp(text, pattern):
 
     return -1
 
-def find_all_addresses(src):
+def find_all_email(src):
     MAIL_BEGIN = 'mailto:'
     MAIL_END = '"'
 
@@ -115,7 +118,7 @@ def vigenere_encrypt(raw, keywords):
 
     return buf
 
-# 첫 번째 문제 해답
+# 첫 번째 문제
 def P1():
     a = vigenere_encrypt('attack safe zone', 'abc')
     b = 'bvwbenaudggc qqf'
@@ -123,7 +126,7 @@ def P1():
     print(b)
     print(a == b)
 
-# 추가 과제
+# 첫 번째 문제 추가 과제
 def P1_2():
     print(vigenere_encrypt('attack safe zone', 'abcdefghijk'))
     print(vigenere_encrypt('attack boring zone', 'tpwhdeodhkd'))
@@ -131,8 +134,6 @@ def P1_2():
 
 # 두 번째 문제 해답
 def P2():
-    # Py_DECREF 가 refcount 를 0 으로 만들꺼니까 FD Leak 을 못잡아내진 않는다.
-    # ResourceWarning 은 무시하자
     src = open('source', encoding='utf-8').read()
     for address in find_all_addresses(src):
         print(address)
