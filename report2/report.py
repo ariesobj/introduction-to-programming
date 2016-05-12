@@ -8,8 +8,8 @@ def new_vigenere_table(keywords):
     table = []
     for i in range(len(keywords)):
         row = []
-        row.extend(VigenereTableauKeywords[i:])
-        row.extend(VigenereTableauKeywords[:i])
+        row.extend(keywords[i:])
+        row.extend(keywords[:i])
         table.append(row)
 
     return table
