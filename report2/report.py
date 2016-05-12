@@ -17,7 +17,7 @@ def new_window(pattern):
     window = 0
     power = pow(radixPrime, len(pattern))
 
-    for char in chars:
+    for char in pattern:
         window = window * radixPrime + ord(char)
 
     return window, power
@@ -70,7 +70,7 @@ def index_rp(text, pattern):
         window = window * radixPrime + ord(text[pos])
         window -= power * ord(text[pos - n])
         pos += 1
-        if pos == hash:
+        if window == hash:
             if text[pos - n:pos] == pattern:
                 return pos - n
 
