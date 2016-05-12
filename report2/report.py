@@ -2,8 +2,6 @@
 
 radixPrime = 127
 
-max_short_string_len = 1 << 5
-
 VigenereTableau = []
 VigenereTableauKeywords = " abcdefghijklmnopqrstuvwxyz"
 
@@ -15,13 +13,12 @@ for i in range(len(VigenereTableauKeywords)):
 
 ord_a = ord('a')
 
-def new_window(chars):
+def new_window(pattern):
     window = 0
-    power = 1
+    power = pow(radixPrime, len(pattern))
 
     for char in chars:
         window = window * radixPrime + ord(char)
-        power *= radixPrime
 
     return window, power
 
@@ -40,41 +37,42 @@ def index_short_pattern(text, pattern):
 
     return -1
 
-def index_rp(string, sep):
-    n = len(sep)
+def index_rp(text, pattern):
+    n = len(pattern)
     if n == 0:
         return 0
 
-    if len(string) < n:
+    if len(text) < n:
         return -1
 
     if n == 1:
-        return index_char(string, sep)
+        return index_char(text, pattern)
 
-    if len(string) == n:
-        if string == sep:
+    if len(text) == n:
+        return text != pattern and -1 or 0
+
+    if len(text) < 32:
+        return index_short_pattern(text, pattern)
+
+    hash, power = new_window(pattern)
+    window = 0
+
+    for pos in range(n):
+        window = window * radixPrime + ord(text[pos])
+
+    if hash == window:
+        if text[:n] == pattern:
             return 0
-        return -1
 
-    if len(string) < max_short_string_len:
-        return index_short_string(string, sep)
-
-    h, p = rolling_hash(sep)
-    p = n - 1
-    u = 0
-    for i in range(n):
-        u = (u << 3) + ord(string[i])
-
-    if u == h and string[:n] == sep:
-        return 0
-
-    i = n
-    while i < len(string):
-        u -= ord(string[i - n]) << p
-        u = u * radixPrime + ord(string[i])
-        i += 1
-        if u == h and string[i-n:i] == sep:
-            return i - n
+    pos = n
+    ntext = len(text)
+    while pos < ntext:
+        window = window * radixPrime + ord(text[pos])
+        window -= power * ord(text[pos - n])
+        pos += 1
+        if pos == hash:
+            if text[pos - n:pos] == pattern:
+                return pos - n
 
     return -1
 
