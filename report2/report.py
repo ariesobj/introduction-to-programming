@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 radixPrime = 127
+modularPrime = 100000007
 
 ord_a = ord('a')
 
@@ -11,17 +12,18 @@ def new_vigenere_table(keywords):
         row.extend(keywords[i:])
         row.extend(keywords[:i])
         table.append(row)
-
     return table
 
 VigenereTableau = new_vigenere_table(" abcdefghijklmnopqrstuvwxyz")
 
+# rolling hash
 def new_window(pattern):
     window = 0
     power = pow(radixPrime, len(pattern))
 
     for char in pattern:
         window = window * radixPrime + ord(char)
+        window %= modularPrime
 
     return window, power
 
@@ -32,6 +34,7 @@ def index_char(text, char):
 
     return -1
 
+# 단순하게 구현된 문자열 검색
 def index_short_pattern(text, pattern):
     n = len(pattern)
     for pos in range(len(text) - n + 1):
@@ -40,6 +43,7 @@ def index_short_pattern(text, pattern):
 
     return -1
 
+# Rabin-Karp
 def index_rp(text, pattern):
     n = len(pattern)
     if n == 0:
@@ -54,6 +58,7 @@ def index_rp(text, pattern):
     if len(text) == n:
         return text != pattern and -1 or 0
 
+    # 작은 길이의 패턴에 대해서는 간단한 방법이 더 낫다.
     if len(text) < 32:
         return index_short_pattern(text, pattern)
 
@@ -62,6 +67,7 @@ def index_rp(text, pattern):
 
     for pos in range(n):
         window = window * radixPrime + ord(text[pos])
+        window %= modularPrime
 
     if hash == window:
         if text[:n] == pattern:
@@ -72,6 +78,7 @@ def index_rp(text, pattern):
     while pos < ntext:
         window = window * radixPrime + ord(text[pos])
         window -= power * ord(text[pos - n])
+        window %= modularPrime
         pos += 1
         if window == hash:
             if text[pos - n:pos] == pattern:
@@ -108,6 +115,10 @@ def char_number(char):
     char = char.lower()
     return ord(char) - ord_a + 1
 
+
+# http://www.cs.mtu.edu/~shene/NSF-4/Tutorial/VIG/Vig-Base.html
+#
+# 위 내용을 보고 영감을 얻어 비게네르 암호화를 구현하였음
 def vigenere_encrypt(raw, keywords):
     pos = 0
     buf = ''
