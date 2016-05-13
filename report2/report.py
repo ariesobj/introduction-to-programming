@@ -137,7 +137,7 @@ def P2():
     r = open('source.html', 'r', -1, 'utf-8')
     data = r.read()
     r.close()
-    for addr in find_all_addresses(data):
+    for addr in find_all_email(data):
         print(addr)
 
 def main():
@@ -147,4 +147,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
