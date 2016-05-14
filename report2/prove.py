@@ -1,5 +1,8 @@
 # -*- coding: UTF-8 -*-
 
+# 이 내용은 과제에 포함된 index_rp 함수가 올바름(correctness)를 증명하는 간단한
+# 증명 시스템입니다. 과제에 포함되지 않습니다.
+
 from contextlib import contextmanager
 import random
 
