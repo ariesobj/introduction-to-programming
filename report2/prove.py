@@ -25,8 +25,8 @@ def _PMFR_iterator(z, space, yield_elem):
                 yield obj
             return w
 
-    # 입력으로 확률질량함수가 아닌 것이 들어온다면 이 부분이 실행될 수 있다.
-    # 그렇지 않다면 이 부분은 절대 실행되지 않는다.
+    # 확률질량함수가 입력으로 주어지지 않았다면 이 부분이 실행될 수 있다.
+    # 그렇지 않다면 이 부분은 절대 실행되지 않음이 수학적으로 보장된다.
     raise ValueError('probability mass function is not provided')
 
 # (x, p)
