@@ -25,6 +25,9 @@ def _PMFR_iterator(z, space, yield_elem):
                 yield obj
             return w
 
+    # BUG: FPMFRU(some_alphabet_ords, n)
+    # 문제가 발생한다... 무엇이 잘못된지 모르겠다... 나중에 시간 날 때 하자...
+
     # 확률질량함수가 입력으로 주어지지 않았다면 이 부분이 실행될 수 있다.
     # 그렇지 않다면 이 부분은 절대 실행되지 않음이 수학적으로 보장된다.
     raise ValueError('probability mass function is not provided')
@@ -54,7 +57,7 @@ def FPMFRU(finite, r):
     return PMFR(space(), r)
 
 def alphastr(n):
-    line = bytearray(FPMFRU(some_alphabet_ords, n))
+    line = bytearray(random.choice(some_alphabet_ords) for i in range(n))
     line = line.decode()
     return line
 
