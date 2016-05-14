@@ -5,28 +5,56 @@ import random
 
 DO_VERIFICATION = True
 
-some_alphabets = [ord(' ')]
-some_alphabets.extend(i for i in range(ord('a'), ord('z') + 1))
-some_alphabets.extend(i for i in range(ord('A'), ord('Z') + 1))
+some_alphabet_ords = [ord(' ')]
+some_alphabet_ords.extend(i for i in range(ord('a'), ord('z') + 1))
+some_alphabet_ords.extend(i for i in range(ord('A'), ord('Z') + 1))
 
-##def PMF(poss):
-##    z = 0
-##    for (p, v) in poss:
-##        if random.random() < p / (1 - z):
-##            return v
-##        z += p
-##
-##    # unreachable
-##    #
-##    # 그러나 함수가 확률질량함수를 이루지 못했을 때 이 코드가 실행될 수도 있음.
+def prepend(iterable, obj):
+    yield obj
+    yield from iterable
 
-##def equalize_poss(lst):
-##    n = 1 / len(lst)
-##    for elem in lst:
-##        yield (n, elem)
+def _PMFR_iterator(z, space, yield_elem):
+    w = 0
+    for obj, p in space:
+        real = p / (z - w)
+        w += p
+        if random.random() < real:
+            if yield_elem:
+                yield (obj, p)
+            else:
+                yield obj
+            return w
+
+    # 입력으로 확률분포함수가 아닌 것이 들어온다면 이 부분이 실행될 수 있다.
+    # 그렇지 않다면 이 부분은 절대 실행되지 않는다.
+    raise ValueError('probability mass function is not provided')
+
+# (x, p)
+def PMFR(space, r, yield_elem=False):
+    space = iter(space)
+    keep = [elem for _, elem in zip(range(r), space)]
+    if len(keep) < r:
+        return []
+
+    z = 1 - sum(p for obj, p in keep)
+
+    for i in range(r):
+        obj, pro = keep.pop()
+        z += pro
+        z -= yield from _PMFR_iterator(z, prepend(space, (obj, pro)), yield_elem)
+
+# with finite uniform distribution
+def FPMFRU(finite, r):
+    p = 1 / len(finite)
+
+    def space():
+        for obj in finite:
+            yield obj, p
+
+    return PMFR(space(), r)
 
 def alphastr(n):
-    line = bytearray(random.choice(some_alphabets) for i in range(n))
+    line = bytearray(FPMFRU(some_alphabet_ords, n))
     line = line.decode()
     return line
 
