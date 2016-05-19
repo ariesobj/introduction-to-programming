@@ -53,11 +53,11 @@ def PMFR(space, r, yield_elem=False):
 def FPMFRU(finite, r):
     p = 1 / len(finite)
 
-    def make_space():
+    def make_uniform_space():
         for obj in finite:
             yield obj, p
 
-    return PMFR(make_space(), r)
+    return PMFR(make_uniform_space(), r)
 
 def alphastr(n):
     line = bytearray(random.choice(some_alphabet_ords) for i in range(n))
