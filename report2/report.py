@@ -45,6 +45,7 @@ def index_short_pattern(text, pattern):
     return -1
 
 # Rabin-Karp
+# 문자열 탐색하기 알고리즘을 사용하였음.
 def index_rp(text, pattern):
     n = len(pattern)
     if n == 0:
@@ -115,7 +116,6 @@ def char_number(char):
 
     char = char.lower()
     return ord(char) - ord_a + 1
-
 
 # http://www.cs.mtu.edu/~shene/NSF-4/Tutorial/VIG/Vig-Base.html
 #
