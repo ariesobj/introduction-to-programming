@@ -27,6 +27,7 @@ def new_window(pattern):
 
     return window, power
 
+# 하나의 문자에 대해서 문자열 검색
 def index_char(text, char):
     for pos, x in enumerate(text):
         if char == x:
@@ -145,7 +146,7 @@ def P1_2():
 
 # 두 번째 문제
 def P2():
-    r = open('source.html', 'r', -1, 'utf-8')
+    r = open('source.html', encoding='utf-8')
     data = r.read()
     r.close()
     for addr in find_all_email(data):
